@@ -1,0 +1,227 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  /* Use design tokens for bg/text */
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+:focus {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+@layer utilities{
+  @keyframes blink{
+    0%, 100%{
+      opacity: 1;
+    }
+    50%{
+      opacity: 0;
+    }
+  }
+  .animate-blink{
+    animation: blink 0.8s step-end infinite;
+  }
+  @keyframes loading{
+    0%{
+      transform: translateX(-100%);
+    }
+    100%{
+      transform: translateX(250%);
+    }
+  }
+  .animate-loading-bar{
+    animation: loading 0.8s ease infinite;
+  }
+  @keyframes fade-in-down {
+    0% { opacity: 0; transform: translateY(-40px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in-up {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in-down {
+    animation: fade-in-down 0.8s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  .delay-150 { animation-delay: 0.15s; }
+  .delay-300 { animation-delay: 0.3s; }
+
+  .contact-anim-link {
+    position: relative;
+    transition: color 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .contact-anim-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    height: 2px;
+    background: hsl(var(--primary));
+    border-radius: 2px;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .contact-anim-link:hover::after, .contact-anim-link:focus::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+  .contact-anim-link:hover, .contact-anim-link:focus {
+    color: hsl(var(--primary-foreground));
+  }
+  .home-anim-link {
+    position: relative;
+    transition: color 0.3s cubic-bezier(0.4,0,0.2,1), border-color 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .home-anim-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%) scaleX(0);
+    width: 70%;
+    height: 3px;
+    background: hsl(var(--primary));
+    border-radius: 2px;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .home-anim-link:hover::after, .home-anim-link:focus::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+  .home-anim-link:hover, .home-anim-link:focus {
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary));
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .nav-underline {
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background: hsl(var(--primary));
+    transform: scaleX(0);
+    transition: transform 0.2s;
+  }
+  .nav-underline:hover::after, .nav-underline:focus::after {
+    transform: scaleX(1);
+  }
+  .nav-underline:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+/* Theme token export helpers removed to reduce CSS warnings */
+
+:root {
+  --radius: 0.625rem;
+  /* Light theme tokens (HSL channels) per spec */
+  --background: 210 40% 98%; /* #F8FAFC */
+  --foreground: 217 33% 18%; /* #1E293B */
+  --card: 0 0% 100%; /* #FFFFFF */
+  --card-foreground: 217 33% 18%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 217 35% 10%;
+  /* Brand colors */
+  --primary: 217 44% 23%; /* #213555 */
+  --primary-foreground: 210 40% 98%;
+  --secondary: 215 20% 49%; /* slate-600 as secondary text */
+  --secondary-foreground: 210 40% 98%;
+  --muted: 210 20% 96%;
+  --muted-foreground: 215 20% 45%;
+  --accent: 217 44% 20%; /* #1b2c44 hover */
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 84% 60%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 217 44% 23%;
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: #213555;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #27391C;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: #213555;
+}
+
+.dark {
+  /* Dark theme tokens (HSL channels) per spec */
+  --background: 222 47% 11%; /* #0F172A */
+  --foreground: 210 40% 96%; /* #F1F5F9 */
+  --card: 215 28% 17%; /* #1E293B */
+  --card-foreground: 210 40% 96%;
+  --popover: 215 28% 17%;
+  --popover-foreground: 210 40% 96%;
+  --primary: 213 40% 54%; /* #4F86C6 */
+  --primary-foreground: 222 47% 11%;
+  --secondary: 215 20% 65%; /* slate-400 */
+  --secondary-foreground: 222 47% 11%;
+  --muted: 222 33% 12%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 213 48% 41%; /* #3a679b hover */
+  --accent-foreground: 210 40% 96%;
+  --destructive: 0 70% 40%;
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --ring: 217 44% 23%;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: #0c111a;
+  --sidebar-foreground: #e5e7eb;
+  --sidebar-primary: #213555;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #18230F;
+  --sidebar-accent-foreground: #e5e7eb;
+  --sidebar-border: #1f2937;
+  --sidebar-ring: #213555;
+}
+
+@layer base {
+  * {
+  /* tailwind @apply: border-border outline-ring/50 transition-colors duration-200 */
+  border-color: hsl(var(--border));
+  }
+  body {
+  /* tailwind @apply: bg-background text-foreground */
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  }
+}
